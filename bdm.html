@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Black Diamond Motors</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --off-black: #111111;
+  --deep: #161616;
+  --white: #f5f3ef;
+  --white-dim: rgba(245,243,239,0.6);
+  --white-ghost: rgba(255, 255, 255, 0.08);
+  --accent: rgba(255,255,255,0.9);
+  --accent-dim: rgba(255,255,255,0.18);
+  --border: rgba(245,243,239,0.12);
+}
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+
+  .cursor { position: fixed; width: 10px; height: 10px; background: var(--white); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: difference; }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(245,243,239,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s, border-color 0.3s; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px 60px; background: linear-gradient(180deg,rgba(10,10,10,0.95) 0%,transparent 100%); transition: border-color 0.4s, background 0.4s, padding 0.4s; border-bottom: 1px solid transparent; }
+  nav.scrolled { padding: 18px 60px; border-bottom-color: var(--border); background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); }
+  .nav-links { display: flex; gap: 44px; list-style: none; }
+  .nav-links a { font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); text-decoration: none; transition: color 0.3s; position: relative; cursor: none; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .logo-mark { display: flex; align-items: center; gap: 14px; text-decoration: none; cursor: none; }
+  .logo-diamond { width: 38px; height: 38px; }
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
+  .logo-text .brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); }
+  .logo-text .sub { font-size: 7.5px; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-top: 3px; }
+  .nav-book-btn { font-size: 9px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--white); border: none; padding: 12px 28px; cursor: none; transition: background 0.3s; text-decoration: none; display: inline-block; }
+  .nav-book-btn:hover { background: var(--gold); }
+
+  .page { display: none; min-height: 100vh; animation: pageFade 0.5s ease both; }
+  .page.active { display: block; }
+  @keyframes pageFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+  /* HOME HERO */
+  #heroSection { position: relative; height: 100vh; display: flex; align-items: flex-end; overflow: hidden; background: linear-gradient(135deg,#0a0a0a 0%,#1a1a1a 40%,#0f0f0f 100%); }
+  .hero-pattern { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg,rgba(201,168,76,0.03) 0px,rgba(201,168,76,0.03) 1px,transparent 1px,transparent 60px), repeating-linear-gradient(-45deg,rgba(201,168,76,0.03) 0px,rgba(201,168,76,0.03) 1px,transparent 1px,transparent 60px); }
+  .hero-diamond-bg { position: absolute; right: -5vw; top: 50%; transform: translateY(-50%); width: 55vw; height: 55vw; opacity: 0.06; animation: spin 60s linear infinite; }
+  @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+  .hero-vert { position: absolute; left: 60px; top: 50%; font-size: 9px; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); white-space: nowrap; transform: translateY(-50%) rotate(-90deg) translateX(-50%); transform-origin: center center; }
+  .hero-car-area { position: absolute; right: 8%; bottom: 0; width: 55%; height: 70%; z-index: 2; overflow: visible;}
+  .hero-car-gradient { position: absolute; top: 0; left: 0; width: 200%; height: 100%; background: linear-gradient(90deg, var(--black) 0%, transparent 60%),linear-gradient(0deg, var(--black) 0%, transparent 30%); z-index: 2; pointer-events: none;}
+  .hero-content { position: relative; z-index: 2; padding: 0 60px 80px 140px; max-width: 800px; animation: reveal 1.4s cubic-bezier(0.16,1,0.3,1) both; }
+  .hero-eyebrow { font-size: 9px; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; animation: reveal 1.4s 0.2s both; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px,7vw,100px); font-weight: 300; line-height: 0.95; color: var(--white); margin-bottom: 32px; animation: reveal 1.4s 0.35s both; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 12px; font-weight: 300; letter-spacing: 0.12em; line-height: 2; color: var(--white-dim); max-width: 420px; margin-bottom: 52px; animation: reveal 1.4s 0.5s both; }
+  .hero-ctas { display: flex; gap: 20px; align-items: center; animation: reveal 1.4s 0.65s both; }
+  @keyframes reveal { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: none; } }
+  .scroll-ind { position: absolute; bottom: 36px; right: 60px; display: flex; align-items: center; gap: 16px; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--white-dim); animation: reveal 1.4s 0.9s both; }
+  .scroll-line { width: 60px; height: 1px; background: var(--border); position: relative; overflow: hidden; }
+  .scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gold); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 50% { left: 0; } 100% { left: 100%; } }
+
+
+  /* BUTTONS */
+  .btn-primary { font-size: 9px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--white); border: none; padding: 18px 44px; cursor: none; transition: background 0.35s, transform 0.2s; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: var(--white); color: var(--black);}
+  .btn-ghost { font-size: 9px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid var(--border); padding: 18px 44px; cursor: none; transition: border-color 0.35s; text-decoration: none; display: inline-block; }
+  .btn-ghost:hover { border-color: var(--white); }
+
+  /* SECTIONS */
+  section { padding: 120px 60px; }
+  .s-eye { font-size: 9px; font-weight: 500; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px,4vw,62px); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 28px; }
+  .s-title em { font-style: italic; }
+  .s-body { font-size: 12px; font-weight: 300; letter-spacing: 0.06em; line-height: 2.2; color: var(--white-dim); max-width: 560px; }
+  .divider { width: 48px; height: 1px; background: var(--gold); margin: 28px 0; }
+
+  /* STATS */
+  .stat-block { background: var(--deep); border: 1px solid var(--border); padding: 32px 28px; transition: border-color 0.3s; }
+  .stat-block:hover { border-color: var(--gold-dim); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--white); line-height: 1; }
+  .stat-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 8px; }
+
+  /* WHY CARDS */
+  .why-card { background: var(--deep); border: 1px solid var(--border); padding: 52px 40px; position: relative; overflow: hidden; transition: border-color 0.4s, transform 0.4s; cursor: none; }
+  .why-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,var(--gold-dim) 0%,transparent 60%); opacity: 0; transition: opacity 0.4s; }
+  .why-card:hover { border-color: var(--accent); transform: translateY(-6px); }
+  .why-card:hover::before { opacity: 1; }
+  .why-num { font-family: 'Cormorant Garamond', serif; font-size: 80px; font-weight: 300; color: rgba(245,243,239,0.04); line-height: 1; position: absolute; top: 20px; right: 24px; }
+  .why-icon { width: 44px; height: 44px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 32px; transition: border-color 0.4s; }
+  .why-card:hover .why-icon {border-color: var(--accent); }
+  .why-card-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 16px; }
+  .why-card-body { font-size: 11px; line-height: 2; letter-spacing: 0.05em; color: var(--white-dim); }
+
+  /* FLEET */
+  .fleet-card { background: var(--deep); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.4s; cursor: none; }
+  .fleet-card:hover { border-color: var(--gold-dim); }
+  .fleet-visual { height: 200px; background: linear-gradient(135deg,#1c1c1c 0%,#0e0e0e 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .fleet-visual::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg,rgba(201,168,76,0.03) 0,rgba(201,168,76,0.03) 1px,transparent 1px,transparent 30px); }
+  .fleet-car-icon { opacity: 0.28; transition: opacity 0.4s; position: relative; z-index: 1; }
+  .fleet-card:hover .fleet-car-icon { opacity: 0.5; }
+  .fleet-badge { position: absolute; top: 16px; left: 16px; font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 5px 12px; z-index: 2; }
+  .fleet-info { padding: 28px 28px 32px; }
+  .fleet-class { font-size: 8px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .fleet-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--white); margin-bottom: 12px; }
+  .fleet-desc { font-size: 11px; line-height: 1.9; color: var(--white-dim); margin-bottom: 24px; }
+  .fleet-specs { display: flex; gap: 20px; padding-top: 20px; border-top: 1px solid var(--border); margin-bottom: 24px; }
+  .fleet-spec { font-size: 9px; letter-spacing: 0.1em; color: var(--white-dim); }
+  .fleet-spec strong { display: block; color: var(--white); font-size: 13px; font-weight: 400; margin-bottom: 2px; }
+  .fleet-price { display: flex; align-items: baseline; gap: 6px; }
+  .fleet-price .amount { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--white); }
+  .fleet-price .period { font-size: 10px; letter-spacing: 0.15em; color: var(--white-dim); }
+  .fleet-btn { margin-top: 20px; display: block; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid var(--border); padding: 14px; text-decoration: none; transition: background 0.3s, border-color 0.3s, color 0.3s; cursor: none; }
+  .fleet-btn:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+  /* FORM */
+  .form-field { background: var(--off-black); border: 1px solid var(--border); transition: border-color 0.3s; }
+  .form-field:focus-within { border-color: var(--gold); }
+  .form-field label { display: block; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); padding: 18px 24px 0; }
+  .form-field input, .form-field select { display: block; width: 100%; background: transparent; border: none; outline: none; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; color: var(--white); padding: 8px 24px 18px; cursor: none; }
+  .form-field select option { background: var(--deep); }
+  .btn-submit { font-size: 9px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--white); border: none; padding: 20px 52px; cursor: none; white-space: nowrap; transition: background 0.3s, transform 0.2s; }
+  .btn-submit:hover { background: var(--gold); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: var(--off-black); border-top: 1px solid var(--border); padding: 80px 60px 40px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; max-width: 1200px; margin: 0 auto 60px; }
+  .footer-brand .bn { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--white); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+  .footer-brand .bt { font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+  .footer-brand p { font-size: 11px; line-height: 2; color: var(--white-dim); }
+  .footer-col h4 { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul li a { font-size: 11px; letter-spacing: 0.06em; color: var(--white-dim); text-decoration: none; transition: color 0.3s; cursor: none; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { font-size: 10px; letter-spacing: 0.1em; color: var(--white-dim); }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s, transform 0.8s; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    nav { padding: 22px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .hero-content { padding: 0 24px 60px; }
+    .hero-vert { display: none; }
+    .about-grid, .why-grid, .fleet-grid, .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .book-form { padding: 32px 24px; }
+    .form-submit { flex-direction: column; align-items: stretch; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
+    <li><a href="#" onclick="showPage('about');return false;">About</a></li>
+    <li><a href="#" onclick="showPage('why');return false;">Why Us</a></li>
+    <li><a href="#" onclick="showPage('fleet');return false;">Our Fleet</a></li>
+    <li><a href="#" onclick="showPage('book');return false;">Reserve</a></li>
+  </ul>
+<a href="#" class="logo-mark" onclick="showPage('home');return false;">
+  <img src="convert the Black Di.png" alt="Black Diamond Motors Logo" class="logo-img" style="width: 130px; height: auto; object-position:center 85%; border-radius :8px;">
+</a>
+  <a href="#" class="nav-book-btn" onclick="showPage('book');return false;">Reserve Now</a>
+</nav>
+
+<!-- ════════ HOME ════════ -->
+<div id="home" class="page active">
+  <div id="heroSection">
+    <div class="hero-pattern"></div>
+    <svg class="hero-diamond-bg" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+      <polygon points="200,10 390,200 200,390 10,200" fill="none" stroke="#c9a84c" stroke-width="1"/>
+      <polygon points="200,50 350,200 200,350 50,200" fill="none" stroke="#c9a84c" stroke-width="0.5"/>
+      <polygon points="200,90 310,200 200,310 90,200" fill="none" stroke="#c9a84c" stroke-width="0.3"/>
+    </svg>
+    <div class="hero-car-area">
+  <img src="dbx.jpg" alt="Hero visual" class="hero-image">
+  <div class="hero-car-gradient"></div> <!-- keeps your gradient -->
+</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Established in Excellence</p>
+      <h1 class="hero-title">Drive <em>Beyond</em><br>Ordinary</h1>
+      <p class="hero-sub">Where luxury meets the open road. Black Diamond Motors curates an unparalleled fleet of prestige vehicles for those who demand nothing less than perfection.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary" onclick="showPage('fleet');return false;">Explore Fleet</a>
+        <a href="#" class="btn-ghost" onclick="showPage('book');return false;">Reserve Now</a>
+      </div>
+    </div>
+    <div class="scroll-ind">
+      <div class="scroll-line"></div>
+      Scroll to discover
+    </div>
+  </div>
+
+  <!-- strip -->
+  <div style="background:var(--deep);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 60px;display:flex;gap:60px;overflow:hidden;">
+    <span style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);white-space:nowrap;">· Premium Fleet</span>
+    <span style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--white-dim);white-space:nowrap;">· Concierge Service</span>
+    <span style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--white-dim);white-space:nowrap;">· 24 / 7 Support</span>
+    <span style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--white-dim);white-space:nowrap;">· Nationwide Coverage</span>
+    <span style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--white-dim);white-space:nowrap;">· Flexible Terms</span>
+  </div>
+
+  <!-- about teaser -->
+  <section style="background:var(--off-black);">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;" class="reveal">
+      <div>
+        <p class="s-eye">Our Philosophy</p>
+        <h2 class="s-title">More Than a <em>Rental</em></h2>
+        <div class="divider"></div>
+        <p class="s-body">At Black Diamond Motors, we believe your vehicle is an extension of your identity. Every car in our collection is hand-selected, meticulously maintained, and presented with the same reverence as the world's finest luxury houses.</p>
+        <br><br>
+        <a href="#" class="btn-ghost" onclick="showPage('about');return false;">Our Story</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+        <div class="stat-block"><div class="stat-num">200<span style="font-size:28px;">+</span></div><div class="stat-label">Trips</div></div>
+        <div class="stat-block"><div class="stat-num">3+</div><div class="stat-label">Years of Prestige</div></div>
+        <div class="stat-block"><div class="stat-num">100<span style="font-size:28px;">+</span></div><div class="stat-label">Happy Clients</div></div>
+        <div class="stat-block"><div class="stat-num">24<span style="font-size:28px;">/7</span></div><div class="stat-label">Concierge</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- fleet teaser -->
+  <section style="background:var(--black);">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="reveal" style="text-align:center;margin-bottom:64px;">
+        <p class="s-eye">Curated Collection</p>
+        <h2 class="s-title">Select Your <em>Vehicle</em></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;" class="reveal">
+        <div style="background:var(--deep);border:1px solid var(--border);padding:44px;text-align:center;cursor:none;transition:border-color 0.3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,0.3)'" onmouseleave="this.style.borderColor='var(--border)'" onclick="showPage('fleet')">
+          <svg width="80" height="40" viewBox="0 0 80 40" fill="none" style="margin:0 auto 20px;display:block;opacity:0.45;"><path d="M5,32 L10,20 L30,12 L50,12 L70,20 L75,32 Z" fill="none" stroke="#c9a84c" stroke-width="1.2"/><circle cx="18" cy="33" r="6" fill="none" stroke="#c9a84c" stroke-width="1"/><circle cx="62" cy="33" r="6" fill="none" stroke="#c9a84c" stroke-width="1"/></svg>
+          <p class="fleet-class">Category</p><p class="fleet-name" style="font-size:20px;">Executive Sedan</p>
+        </div>
+        <div style="background:var(--deep);border:1px solid var(--border);padding:44px;text-align:center;cursor:none;transition:border-color 0.3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,0.3)'" onmouseleave="this.style.borderColor='var(--border)'" onclick="showPage('fleet')">
+          <svg width="80" height="40" viewBox="0 0 80 40" fill="none" style="margin:0 auto 20px;display:block;opacity:0.45;"><path d="M4,32 L8,18 L25,10 L55,10 L72,18 L76,32 Z" fill="none" stroke="#c9a84c" stroke-width="1.2"/><circle cx="18" cy="33" r="6" fill="none" stroke="#c9a84c" stroke-width="1"/><circle cx="62" cy="33" r="6" fill="none" stroke="#c9a84c" stroke-width="1"/></svg>
+          <p class="fleet-class">Category</p><p class="fleet-name" style="font-size:20px;">Luxury SUV</p>
+        </div>
+        <div style="background:var(--deep);border:1px solid var(--border);padding:44px;text-align:center;cursor:none;transition:border-color 0.3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,0.3)'" onmouseleave="this.style.borderColor='var(--border)'" onclick="showPage('fleet')">
+          <svg width="80" height="40" viewBox="0 0 80 40" fill="none" style="margin:0 auto 20px;display:block;opacity:0.45;"><path d="M5,30 L8,20 L22,10 L40,8 L58,10 L72,20 L75,30 Z" fill="none" stroke="#c9a84c" stroke-width="1.2"/><circle cx="18" cy="31" r="6" fill="none" stroke="#c9a84c" stroke-width="1"/><circle cx="62" cy="31" r="6" fill="none" stroke="#c9a84c" stroke-width="1"/></svg>
+          <p class="fleet-class">Category</p><p class="fleet-name" style="font-size:20px;">Sports Coupé</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:40px;" class="reveal">
+        <a href="#" class="btn-primary" onclick="showPage('fleet');return false;">View Full Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- quote -->
+  <div style="background:var(--deep);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 60px;text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,42px);font-weight:300;font-style:italic;color:var(--white);max-width:800px;margin:0 auto;line-height:1.4;">"Luxury is not a necessity to me, but beautiful and good things are."</p>
+    <p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-top:20px;">— The Black Diamond Standard</p>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2024</div><p>Purveyors of premium automotive experiences. Where prestige meets the open road.</p></div>
+      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About Us</a></li><li><a href="#" onclick="showPage('why');return false;">Why Choose Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Our Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div>
+      <div class="footer-col"><h4>Fleet</h4><ul><li><a href="#" onclick="showPage('fleet');return false;">Executive Sedans</a></li><li><a href="#" onclick="showPage('fleet');return false;">Luxury SUVs</a></li><li><a href="#" onclick="showPage('fleet');return false;">Sports Coupés</a></li><li><a href="#" onclick="showPage('fleet');return false;">Exotic Collection</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li><li><a href="#">Toronto, ON</a></li><li><a href="#">24/7 Concierge</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms of Service</p></div>
+  </footer>
+</div>
+
+<!-- ════════ ABOUT ════════ -->
+<div id="about" class="page">
+  <div style="padding-top:100px;"></div>
+  <section style="background:var(--off-black);padding-top:60px;">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;" class="about-grid">
+      <div style="position:relative;height:500px;">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1a1a 0%,#0f0f0f 100%);border:1px solid var(--border);overflow:hidden;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.12;">
+            <svg width="240" height="240" viewBox="0 0 240 240" fill="none"><polygon points="120,8 232,120 120,232 8,120" fill="none" stroke="#c9a84c" stroke-width="1.5"/><polygon points="120,40 200,120 120,200 40,120" fill="none" stroke="#c9a84c" stroke-width="0.8"/><polygon points="120,75 165,120 120,165 75,120" fill="#c9a84c" opacity="0.3"/></svg>
+          </div>
+          <div style="position:absolute;bottom:32px;left:32px;right:32px;">
+            <p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Our Promise</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);line-height:1.4;">Every journey deserves to begin in magnificence.</p>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:-20px;right:-20px;width:120px;height:120px;border:1px solid var(--gold-dim);transform:rotate(45deg);"></div>
+      </div>
+      <div>
+        <p class="s-eye">Our Story</p>
+        <h2 class="s-title">Born From a <em>Passion</em> for Perfection</h2>
+        <div class="divider"></div>
+        <p class="s-body">Black Diamond Motors was founded on a singular belief: that the act of driving should be an experience, not merely a necessity. Our founders, seasoned automotive enthusiasts, saw a void in the market — a place where discerning clients could access world-class vehicles without compromise.</p>
+        <br>
+        <p class="s-body">Since our establishment in 2024, we have grown into one of Canada's most respected premium rental car, maintaining an unwavering commitment to quality, discretion, and exceptional service. Our team of dedicated professionals treats every reservation with the same care and attention reserved for the finest luxury purchases.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:52px;">
+          <div class="stat-block"><div class="stat-num">200<span style="font-size:24px;">+</span></div><div class="stat-label">Vehicles</div></div>
+          <div class="stat-block"><div class="stat-num">8</div><div class="stat-label">Years</div></div>
+          <div class="stat-block"><div class="stat-num">15k</div><div class="stat-label">Clients</div></div>
+          <div class="stat-block"><div class="stat-num">100<span style="font-size:24px;">%</span></div><div class="stat-label">Satisfaction</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="background:var(--black);">
+    <div style="max-width:1100px;margin:0 auto;text-align:center;">
+      <p class="s-eye">Our Values</p>
+      <h2 class="s-title">Guided by <em>Principle</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px;">
+        <div style="background:var(--deep);border:1px solid var(--border);padding:48px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--gold);opacity:0.25;margin-bottom:16px;">I</p><h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--white);margin-bottom:12px;">Integrity</h3><p style="font-size:11px;line-height:2;color:var(--white-dim);">Transparent pricing, honest recommendations, and a commitment to doing what is right — always.</p></div>
+        <div style="background:var(--deep);border:1px solid var(--border);padding:48px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--gold);opacity:0.25;margin-bottom:16px;">E</p><h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--white);margin-bottom:12px;">Excellence</h3><p style="font-size:11px;line-height:2;color:var(--white-dim);">Every vehicle is inspected, every interaction crafted, every detail considered without exception.</p></div>
+        <div style="background:var(--deep);border:1px solid var(--border);padding:48px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--gold);opacity:0.25;margin-bottom:16px;">D</p><h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--white);margin-bottom:12px;">Discretion</h3><p style="font-size:11px;line-height:2;color:var(--white-dim);">Your privacy is paramount. We handle every reservation with absolute confidentiality.</p></div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2024</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li><li><a href="#">Toronto, ON</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">LinkedIn</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>
+</div>
+
+<!-- ════════ WHY US ════════ -->
+<div id="why" class="page">
+  <div style="padding-top:100px;"></div>
+  <section style="background:var(--black);padding-top:60px;">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:80px;">
+        <p class="s-eye">The Black Diamond Difference</p>
+        <h2 class="s-title">Why Discerning Clients <em>Choose</em> Us</h2>
+        <div class="divider" style="margin:24px auto;"></div>
+        <p class="s-body" style="margin:0 auto;text-align:center;">Built on a foundation of uncompromising quality and personalised care — the hallmarks of true luxury.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;" class="why-grid">
+        <div class="why-card"><div class="why-num">01</div><div class="why-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><polygon points="10,2 18,10 10,18 2,10" fill="none" stroke="#c9a84c" stroke-width="1.2"/></svg></div><h3 class="why-card-title">Curated Fleet</h3><p class="why-card-body">Every vehicle is hand-selected from the world's finest marques — Aston Martin, Mercedes-Benz Maybach, Jaguar, and more — maintained to concours standards.</p></div>
+        <div class="why-card"><div class="why-num">02</div><div class="why-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="none" stroke="#c9a84c" stroke-width="1.2"/><path d="M10,6 L10,10 L13,13" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/></svg></div><h3 class="why-card-title">24/7 Concierge</h3><p class="why-card-body">Our dedicated concierge team is available around the clock for last-minute reservations, custom delivery, and any request you may have.</p></div>
+        <div class="why-card"><div class="why-num">03</div><div class="why-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10,2 L13,7 L19,8 L14,13 L16,19 L10,16 L4,19 L6,13 L1,8 L7,7 Z" fill="none" stroke="#c9a84c" stroke-width="1.2"/></svg></div><h3 class="why-card-title">White-Glove Service</h3><p class="why-card-body">Delivery and collection at your preferred location, presented by uniformed attendants with full orientation and documentation handled seamlessly.</p></div>
+        <div class="why-card"><div class="why-num">04</div><div class="why-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="1" fill="none" stroke="#c9a84c" stroke-width="1.2"/><path d="M2,8 L18,8" stroke="#c9a84c" stroke-width="1"/></svg></div><h3 class="why-card-title">Transparent Pricing</h3><p class="why-card-body">No hidden fees, no surprises. Our pricing is all-inclusive so you can focus entirely on the journey ahead.</p></div>
+        <div class="why-card"><div class="why-num">05</div><div class="why-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10,2 C6,2 3,5 3,9 C3,15 10,19 10,19 C10,19 17,15 17,9 C17,5 14,2 10,2 Z" fill="none" stroke="#c9a84c" stroke-width="1.2"/></svg></div><h3 class="why-card-title">Fully Insured</h3><p class="why-card-body">Comprehensive insurance packages tailored to each vehicle class, giving you complete peace of mind from departure to return.</p></div>
+        <div class="why-card"><div class="why-num">06</div><div class="why-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4,10 L8,14 L16,6" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3 class="why-card-title">Flexible Terms</h3><p class="why-card-body">Whether you need a vehicle for an afternoon or an extended engagement, our flexible rental terms adapt to your schedule perfectly.</p></div>
+      </div>
+    </div>
+  </section>
+  <!-- testimonials -->
+  <section style="background:var(--deep);border-top:1px solid var(--border);">
+    <div style="max-width:1100px;margin:0 auto;text-align:center;">
+      <p class="s-eye">Client Testimonials</p>
+      <h2 class="s-title">Words From Our <em>Clients</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px;">
+        <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p><p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">An experience I won't soon forget. The  was immaculate and the service was nothing short of extraordinary.</p><div style="border-top:1px solid var(--border);padding-top:20px;"><p style="font-size:11px;color:var(--white);">James R.</p><p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Executive Client</p></dRolls-Royceiv></div>
+        <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p><p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">Booked for our anniversary — the team went above and beyond with personalised touches that made the day unforgettable.</p><div style="border-top:1px solid var(--border);padding-top:20px;"><p style="font-size:11px;color:var(--white);">Sofia M.</p><p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Returning Client</p></div></div>
+        <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p><p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">True luxury is in the details. Black Diamond understands this better than anyone. My third rental, each time better than the last.</p><div style="border-top:1px solid var(--border);padding-top:20px;"><p style="font-size:11px;color:var(--white);">David K.</p><p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Loyal Member</p></div></div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2024</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>
+</div>
+
+
+<!-- ════════ FLEET ════════ -->
+<div id="fleet" class="page">
+  <div style="padding-top:100px;"></div>
+  <section style="background:var(--off-black);padding-top:60px;">
+    <div style="max-width:1300px;margin:0 auto;">
+      <div style="margin-bottom:64px;">
+        <p class="s-eye">Exclusive Collection</p>
+        <h2 class="s-title">Our <em>Fleet</em></h2>
+        <div class="divider"></div>
+        <p class="s-body">Each vehicle represents the pinnacle of automotive artistry. Select your preferred model and experience driving elevated.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;" class="fleet-grid">
+
+  <!-- 1. Aston Martin DBX -->
+  <div class="fleet-card">
+    <div class="fleet-visual">
+      <div class="fleet-badge">Most Popular</div>
+      <img src="dbx.jpg" alt="Aston Martin DBX" style="width:100%; height:auto; object-fit:cover; border-radius:8px;">
+    </div>
+    <div class="fleet-info">
+      <p class="fleet-class">Executive Sedan</p>
+      <h3 class="fleet-name">Aston Martin DBX</h3>
+      <p class="fleet-desc">The definition of effortless luxury. The Ghost envelops its occupants in a world of absolute tranquility and opulence.</p>
+      <div class="fleet-specs">
+        <div class="fleet-spec"><strong>563</strong> Horsepower</div>
+        <div class="fleet-spec"><strong>4.8s</strong> 0–100 km/h</div>
+        <div class="fleet-spec"><strong>5</strong> Seats</div>
+      </div>
+      <div class="fleet-price"><span class="amount">$1,200</span><span class="period">/ day</span></div>
+      <a href="#" class="fleet-btn" onclick="showPage('book');return false;">Reserve This Vehicle</a>
+    </div>
+  </div>
+
+  <!-- 2. Jaguar F-Type -->
+  <div class="fleet-card">
+    <div class="fleet-visual">
+            <img src="ftyp3.jpg" alt="Jaguar F-Type"
+      style="width:100%; height:250px; object-fit:cover; object-position:center 85%; border-radius:8px;">
+    </div>
+    <div class="fleet-info">
+      <p class="fleet-class">Grand Tourer</p>
+      <h3 class="fleet-name">Jaguar F-Type</h3>
+      <p class="fleet-desc">Hand-crafted in Crewe, the Continental GT is the apex of grand touring — formidably powerful and supremely elegant.</p>
+      <div class="fleet-specs">
+        <div class="fleet-spec"><strong>650</strong> Horsepower</div>
+        <div class="fleet-spec"><strong>3.6s</strong> 0–100 km/h</div>
+        <div class="fleet-spec"><strong>4</strong> Seats</div>
+      </div>
+      <div class="fleet-price"><span class="amount">$950</span><span class="period">/ day</span></div>
+      <a href="#" class="fleet-btn" onclick="showPage('book');return false;">Reserve This Vehicle</a>
+    </div>
+  </div>
+
+  <!-- 3. Mercedes-Benz Maybach S560 -->
+  <div class="fleet-card">
+    <div class="fleet-visual">
+      <div class="fleet-badge">Exotic</div>
+      <img src="s560.jpg" alt="Mercedes-Benz Maybach S560" style="width:100%; height:auto; object-fit:cover; border-radius:8px;">
+    </div>
+    <div class="fleet-info">
+      <p class="fleet-class">Supercar</p>
+      <h3 class="fleet-name">Mercedes-Benz Maybach S560</h3>
+      <p class="fleet-desc">Raw, visceral, and breathtaking. The Huracán is an automotive event that demands attention at every corner.</p>
+      <div class="fleet-specs">
+        <div class="fleet-spec"><strong>610</strong> Horsepower</div>
+        <div class="fleet-spec"><strong>2.9s</strong> 0–100 km/h</div>
+        <div class="fleet-spec"><strong>2</strong> Seats</div>
+      </div>
+      <div class="fleet-price"><span class="amount">$1,500</span><span class="period">/ day</span></div>
+      <a href="#" class="fleet-btn" onclick="showPage('book');return false;">Reserve This Vehicle</a>
+    </div>
+  </div>
+
+  <!-- 4. Jeep Wagoneer -->
+  <div class="fleet-card">
+    <div class="fleet-visual">
+      <img src="wag.jpg" alt="Jeep Wagoneer"
+      style="width:100%; height:250px; object-fit:cover; object-position:center 85%; border-radius:8px;">
+    </div>
+    <div class="fleet-info">
+      <p class="fleet-class">Luxury SUV</p>
+      <h3 class="fleet-name">Jeep Wagoneer</h3>
+      <p class="fleet-desc">Commanding presence meets refined comfort. The Range Rover SV defines the luxury SUV segment with unmatched versatility.</p>
+      <div class="fleet-specs">
+        <div class="fleet-spec"><strong>530</strong> Horsepower</div>
+        <div class="fleet-spec"><strong>5.1s</strong> 0–100 km/h</div>
+        <div class="fleet-spec"><strong>5</strong> Seats</div>
+      </div>
+      <div class="fleet-price"><span class="amount">$750</span><span class="period">/ day</span></div>
+      <a href="#" class="fleet-btn" onclick="showPage('book');return false;">Reserve This Vehicle</a>
+    </div>
+  </div>
+
+  <!-- 5. Audi SQ8 -->
+  <div class="fleet-card">
+    <div class="fleet-visual">
+      <img src="sq8.jpg" alt="Audi SQ8" style="width:100%; height:auto; object-fit:cover; border-radius:8px;">
+    </div>
+    <div class="fleet-info">
+      <p class="fleet-class">Sports Sedan</p>
+      <h3 class="fleet-name">Audi SQ8</h3>
+      <p class="fleet-desc">The Panamera masterfully combines four-door practicality with sports car performance and unmistakable Porsche character.</p>
+      <div class="fleet-specs">
+        <div class="fleet-spec"><strong>550</strong> Horsepower</div>
+        <div class="fleet-spec"><strong>3.4s</strong> 0–100 km/h</div>
+        <div class="fleet-spec"><strong>4</strong> Seats</div>
+      </div>
+      <div class="fleet-price"><span class="amount">$650</span><span class="period">/ day</span></div>
+      <a href="#" class="fleet-btn" onclick="showPage('book');return false;">Reserve This Vehicle</a>
+    </div>
+  </div>
+
+  <!-- 6. Mercedes-Benz G-Wagon -->
+  <div class="fleet-card">
+    <div class="fleet-visual">
+      <div class="fleet-badge">New Arrival</div>
+      <img src="gwag.jpg" alt="Mercedes-Benz G-Wagon" style="width:100%; height:auto; object-fit:cover; border-radius:8px;">
+    </div>
+    <div class="fleet-info">
+      <p class="fleet-class">Hyper Sedan</p>
+      <h3 class="fleet-name">Mercedes-Benz G-Wagon</h3>
+      <p class="fleet-desc">AMG's most powerful four-door — a fusion of devastating performance and intelligent luxury for the ultimate driving experience.</p>
+      <div class="fleet-specs">
+        <div class="fleet-spec"><strong>816</strong> Horsepower</div>
+        <div class="fleet-spec"><strong>2.8s</strong> 0–100 km/h</div>
+        <div class="fleet-spec"><strong>4</strong> Seats</div>
+      </div>
+      <div class="fleet-price"><span class="amount">$850</span><span class="period">/ day</span></div>
+      <a href="#" class="fleet-btn" onclick="showPage('book');return false;">Reserve This Vehicle</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════ BOOK ════════ -->
+<div id="book" class="page">
+  <div style="padding-top:100px;"></div>
+  <section style="background:var(--black);padding-top:60px;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:64px;">
+        <p class="s-eye">Make a Request</p>
+        <h2 class="s-title">Request Your <em>Vehicle or Book with Turo</em></h2>
+        <div class="divider" style="margin:24px auto;"></div>
+        <p class="s-body" style="margin:0 auto;text-align:center;">Complete the form below and our concierge team will confirm your reservation.</p>
+      </div>
+
+<!-- TURO EMBED -->
+<div style="text-align:center;margin-bottom:60px;">
+  <p class="s-eye">Instant Booking</p>
+  <h2 class="s-title">Book via <em>Turo</em></h2>
+  <div class="divider" style="margin:24px auto;"></div>
+
+  <a href="https://turo.com/ca/en/drivers/6006478"
+     target="_blank"
+     class="btn-primary">
+     View Live Availability
+  </a>
+</div>
+
+      <div id="bookForm" style="background:var(--deep);border:1px solid var(--border);padding:64px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;" class="form-grid">
+          <div class="form-field"><label>First Name</label><input type="text" placeholder="Alexander" id="firstName"></div>
+          <div class="form-field"><label>Last Name</label><input type="text" placeholder="Sterling" id="lastName"></div>
+          <div class="form-field"><label>Email Address</label><input type="email" placeholder="your@email.com" id="email"></div>
+          <div class="form-field"><label>Phone Number</label><input type="tel" placeholder="+1 (___) ___-____" id="phone"></div>
+          <div class="form-field"><label>Preferred Vehicle</label><select id="vehicle"><option value="">Select a vehicle</option><option>Aston Martin DBX — $800/day</option><option>Audi SQ8 — $950/day</option><option>Jaguar F-Type — $1,000/day</option><option>Jeep Wagoneer — $750/day</option><option>Mercedes-Benz G-Wagon — $650/day</option><option>Bentley Bentayga — $850/day</option></select></div>
+          <div class="form-field"><label>Duration</label><select><option>1 Day</option><option>2–3 Days</option><option>4–6 Days</option><option>1 Week</option><option>2 Weeks</option><option>1 Month+</option></select></div>
+          <div class="form-field"><label>Pickup Date</label><input type="date" id="pickupDate"></div>
+          <div class="form-field"><label>Return Date</label><input type="date" id="returnDate"></div>
+          <div class="form-field" style="grid-column:1/-1;"><label>Delivery Address (Optional)</label><input type="text" placeholder="Address for white-glove delivery"></div>
+          <div class="form-field" style="grid-column:1/-1;"><label>Special Requests</label><input type="text" placeholder="Champagne, roses, custom itinerary..."></div>
+        </div>
+        <div style="margin-top:32px;display:flex;align-items:center;justify-content:space-between;gap:32px;" class="form-submit">
+          <p style="font-size:10px;letter-spacing:0.08em;line-height:1.8;color:var(--white-dim);">Your reservation will be confirmed.<br>A 20% deposit secures your booking.</p>
+          <button class="btn-submit" onclick="submitBooking()">Submit Reservation</button>
+        </div>
+      </div>
+
+      <div id="bookingSuccess" style="display:none;text-align:center;padding:80px 48px;background:var(--deep);border:1px solid var(--border);">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin:0 auto 24px;display:block;"><polygon points="32,4 60,32 32,60 4,32" fill="none" stroke="#c9a84c" stroke-width="1.5"/><polygon points="32,16 48,32 32,48 16,32" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/><path d="M22,32 L28,38 L42,24" stroke="#f5f3ef" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--white);margin-bottom:16px;">Reservation Received</h2>
+        <p style="font-size:12px;line-height:2;color:var(--white-dim);">Thank you for choosing Black Diamond Motors.<br>Our concierge will be in touch within 2 hours to confirm your reservation.<br><br>We look forward to curating your experience.</p>
+        <br><br>
+        <a href="#" class="btn-ghost" onclick="showPage('home');return false;">Return Home</a>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:var(--deep);border-top:1px solid var(--border);padding:48px 60px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+    <div style="text-align:center;"><p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Phone</p><p style="font-size:16px;color:var(--white);">+1 (800) 555-0199</p></div>
+    <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border);"><p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Email</p><p style="font-size:16px;color:var(--white);">info@blackdiamond.com</p></div>
+    <div style="text-align:center;"><p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Hours</p><p style="font-size:16px;color:var(--white);">24 / 7 Concierge</p></div>
+  </div>
+
+  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2016</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>
+</div>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+  (function animRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a,button,[onclick]')) {
+      ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(201,168,76,0.6)';
+    } else {
+      ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(245,243,239,0.5)';
+    }
+  });
+
+  // Nav scroll
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30));
+
+  // Page switching
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    initReveal();
+    // reset booking form view
+    if (id === 'book') {
+      document.getElementById('bookForm').style.display = 'block';
+      document.getElementById('bookingSuccess').style.display = 'none';
+    }
+  }
+
+  // Scroll reveal
+  function initReveal() {
+    const els = document.querySelectorAll('.page.active .reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    els.forEach(el => obs.observe(el));
+  }
+  initReveal();
+
+  // Booking submit
+  function submitBooking() {
+    const first = document.getElementById('firstName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const vehicle = document.getElementById('vehicle').value;
+    if (!first || !email || !vehicle) {
+      alert('Please fill in your Name, Email, and preferred Vehicle to continue.');
+      return;
+    }
+    document.getElementById('bookForm').style.display = 'none';
+    document.getElementById('bookingSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
