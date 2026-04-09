@@ -121,11 +121,11 @@
   /* FORM */
   .form-field { background: var(--off-black); border: 1px solid var(--border); transition: border-color 0.3s; }
   .form-field:focus-within { border-color: var(--gold); }
-  .form-field label { display: block; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); padding: 18px 24px 0; }
+  .form-field label { display: block; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--white); padding: 18px 24px 0; }
   .form-field input, .form-field select { display: block; width: 100%; background: transparent; border: none; outline: none; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; color: var(--white); padding: 8px 24px 18px; cursor: none; }
   .form-field select option { background: var(--deep); }
   .btn-submit { font-size: 9px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--white); border: none; padding: 20px 52px; cursor: none; white-space: nowrap; transition: background 0.3s, transform 0.2s; }
-  .btn-submit:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-submit:hover { background: var(--white); transform: translateY(-2px); }
 
   /* FOOTER */
   footer { background: var(--off-black); border-top: 1px solid var(--border); padding: 80px 60px 40px; }
@@ -133,7 +133,7 @@
   .footer-brand .bn { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--white); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
   .footer-brand .bt { font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
   .footer-brand p { font-size: 11px; line-height: 2; color: var(--white-dim); }
-  .footer-col h4 { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .footer-col h4 { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
   .footer-col ul { list-style: none; }
   .footer-col ul li { margin-bottom: 12px; }
   .footer-col ul li a { font-size: 11px; letter-spacing: 0.06em; color: var(--white-dim); text-decoration: none; transition: color 0.3s; cursor: none; }
@@ -157,6 +157,115 @@
     .form-submit { flex-direction: column; align-items: stretch; }
     .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
   }
+  /* ── TABLET (max 1024px) ── */
+@media (max-width: 1024px) {
+  nav { padding: 20px 32px; }
+  nav.scrolled { padding: 14px 32px; }
+
+  .hero-content { padding: 0 32px 60px 80px; }
+  .hero-car-area { width: 50%; right: 2%; }
+
+  section { padding: 80px 32px; }
+
+  .why-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .fleet-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px; }
+}
+
+/* ── MOBILE (max 768px) ── */
+@media (max-width: 768px) {
+
+  /* --- NAV --- */
+  nav { padding: 16px 20px; }
+  nav.scrolled { padding: 12px 20px; }
+  .nav-links { display: none; }
+  .nav-book-btn { padding: 10px 18px; font-size: 8px; }
+
+  /* --- HERO --- */
+  #heroSection { align-items: flex-end; min-height: 100vh; }
+  .hero-car-area {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    height: 50%;
+    opacity: 0.35;
+  }
+  .hero-car-area img { object-fit: cover; width: 100%; height: 100%; }
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 0 20px 60px 20px;
+    max-width: 100%;
+  }
+  .hero-title { font-size: clamp(40px, 11vw, 64px); }
+  .hero-sub { font-size: 11px; max-width: 100%; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .btn-primary, .btn-ghost { padding: 16px 32px; width: 100%; text-align: center; }
+  .hero-vert { display: none; }
+  .scroll-ind { display: none; }
+
+  /* --- SECTIONS --- */
+  section { padding: 60px 20px; }
+  .s-title { font-size: clamp(28px, 8vw, 44px); }
+
+  /* --- ABOUT GRID --- */
+  .about-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+  /* --- STATS --- */
+  .stat-block { padding: 20px 16px; }
+  .stat-num { font-size: 36px; }
+
+  /* --- WHY CARDS --- */
+  .why-grid { grid-template-columns: 1fr !important; }
+  .why-card { padding: 36px 28px; }
+
+  /* --- FLEET --- */
+  .fleet-grid { grid-template-columns: 1fr !important; }
+  .fleet-visual { height: 180px; }
+  .fleet-visual img { object-fit: cover; height: 180px; }
+
+  /* --- TESTIMONIALS --- */
+  div[style*="repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
+
+  /* --- VALUES --- */
+  div[style*="repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
+
+  /* --- HOME FLEET TEASER --- */
+  div[style*="repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
+
+  /* --- STRIP BAR --- */
+  div[style*="gap:60px;overflow:hidden"] {
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  /* --- QUOTE SECTION --- */
+  div[style*="padding:80px 60px;text-align:center"] { padding: 48px 20px !important; }
+
+  /* --- BOOK PAGE --- */
+  #book section { padding: 60px 20px; }
+  #book a[href*="turo"] { font-size: 15px; padding: 14px 24px; }
+
+  /* --- CONTACT STRIP --- */
+  div[style*="repeat(3,1fr)"][style*="border-left"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* --- FOOTER --- */
+  .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  footer { padding: 48px 20px 28px; }
+  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+}
+
+/* ── SMALL MOBILE (max 400px) ── */
+@media (max-width: 400px) {
+  .hero-title { font-size: 36px; }
+  .logo-text .brand { font-size: 14px; }
+  nav img[src="bdmlogo2.png"] { width: 160px !important; }
+  .fleet-name { font-size: 20px; }
+}
 </style>
 </head>
 <body>
@@ -173,9 +282,9 @@
     <li><a href="#" onclick="showPage('fleet');return false;">Our Fleet</a></li>
     <li><a href="#" onclick="showPage('book');return false;">Reserve</a></li>
   </ul>
-<a href="#" class="logo-mark" onclick="showPage('home');return false;">
-  <img src="convert the Black Di.png" alt="Black Diamond Motors Logo" class="logo-img" style="width: 130px; height: auto; object-position:center 85%; border-radius :8px;">
-</a>
+<div style="display: flex; justify-content: center;">
+  <img src="bdmlogo2.png" style="width: 250px;">
+</div>
   <a href="#" class="nav-book-btn" onclick="showPage('book');return false;">Reserve Now</a>
 </nav>
 
@@ -237,7 +346,7 @@
   </section>
 
   <!-- fleet teaser -->
-  <section style="background:var(--black);">
+  <section style="background:#000;">
     <div style="max-width:1200px;margin:0 auto;">
       <div class="reveal" style="text-align:center;margin-bottom:64px;">
         <p class="s-eye">Curated Collection</p>
@@ -324,7 +433,7 @@
       </div>
     </div>
   </section>
-  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2024</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li><li><a href="#">Toronto, ON</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">LinkedIn</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>
+  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2024</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li><li><a href="#">Toronto, ON</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="https://www.instagram.com/blackdiamond_motors" target="_blank">Instagram</a></li><li><a href="https://maps.app.goo.gl/7u6bRW8B27H5PHMn7" target="_blank">Google</a></li><li><a href="#">LinkedIn</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>
 </div>
 
 <!-- ════════ WHY US ════════ -->
@@ -348,19 +457,77 @@
       </div>
     </div>
   </section>
-  <!-- testimonials -->
-  <section style="background:var(--deep);border-top:1px solid var(--border);">
-    <div style="max-width:1100px;margin:0 auto;text-align:center;">
-      <p class="s-eye">Client Testimonials</p>
-      <h2 class="s-title">Words From Our <em>Clients</em></h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px;">
-        <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p><p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">An experience I won't soon forget. The  was immaculate and the service was nothing short of extraordinary.</p><div style="border-top:1px solid var(--border);padding-top:20px;"><p style="font-size:11px;color:var(--white);">James R.</p><p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Executive Client</p></dRolls-Royceiv></div>
-        <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p><p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">Booked for our anniversary — the team went above and beyond with personalised touches that made the day unforgettable.</p><div style="border-top:1px solid var(--border);padding-top:20px;"><p style="font-size:11px;color:var(--white);">Sofia M.</p><p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Returning Client</p></div></div>
-        <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p><p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">True luxury is in the details. Black Diamond understands this better than anyone. My third rental, each time better than the last.</p><div style="border-top:1px solid var(--border);padding-top:20px;"><p style="font-size:11px;color:var(--white);">David K.</p><p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Loyal Member</p></div></div>
+<!-- testimonials -->
+<section style="background:var(--deep);border-top:1px solid var(--border);">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+    <p class="s-eye">Client Testimonials</p>
+    <h2 class="s-title">Words From Our <em>Clients</em></h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px;">
+      
+      <!-- Testimonial 1 -->
+      <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p>
+        <p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">An experience I won't soon forget. The car was immaculate and the service was nothing short of extraordinary.</p>
+        <div style="border-top:1px solid var(--border);padding-top:20px;">
+          <p style="font-size:11px;color:var(--white);">James R.</p>
+          <p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Executive Client</p>
+        </div>
       </div>
+
+      <!-- Testimonial 2 -->
+      <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p>
+        <p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">Booked for our anniversary — the team went above and beyond with personalised touches that made the day unforgettable.</p>
+        <div style="border-top:1px solid var(--border);padding-top:20px;">
+          <p style="font-size:11px;color:var(--white);">Sofia M.</p>
+          <p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Returning Client</p>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p>
+        <p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">True luxury is in the details. Black Diamond understands this better than anyone. My third rental, each time better than the last.</p>
+        <div style="border-top:1px solid var(--border);padding-top:20px;">
+          <p style="font-size:11px;color:var(--white);">David K.</p>
+          <p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Loyal Member</p>
+        </div>
+      </div>
+
+      <!-- Testimonial 4 -->
+      <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p>
+        <p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">Exceptional service! The team handled everything seamlessly, making my experience effortless and memorable.</p>
+        <div style="border-top:1px solid var(--border);padding-top:20px;">
+          <p style="font-size:11px;color:var(--white);">Emily L.</p>
+          <p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">VIP Client</p>
+        </div>
+      </div>
+
+      <!-- Testimonial 5 -->
+      <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p>
+        <p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">Luxury at its finest. Every detail is considered — from vehicle cleanliness to concierge attention.</p>
+        <div style="border-top:1px solid var(--border);padding-top:20px;">
+          <p style="font-size:11px;color:var(--white);">Michael B.</p>
+          <p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Corporate Client</p>
+        </div>
+      </div>
+
+      <!-- Testimonial 6 -->
+      <div style="background:var(--off-black);border:1px solid var(--border);padding:44px 36px;text-align:left;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold);opacity:0.35;line-height:1;margin-bottom:16px;">"</p>
+        <p style="font-size:12px;line-height:2;color:var(--white-dim);margin-bottom:28px;font-style:italic;">From start to finish, the experience exceeded expectations. Professional, punctual, and perfectly executed.</p>
+        <div style="border-top:1px solid var(--border);padding-top:20px;">
+          <p style="font-size:11px;color:var(--white);">Olivia S.</p>
+          <p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Private Client</p>
+        </div>
+      </div>
+
     </div>
-  </section>
-  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2024</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>
+  </div>
+</section>
+  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2024</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li><li><a href="#">Toronto, ON</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="https://www.instagram.com/blackdiamond_motors" target="_blank">Instagram</a></li><li><a href="https://maps.app.goo.gl/7u6bRW8B27H5PHMn7" target="_blank">Google</a></li><li><a href="#">LinkedIn</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>
 </div>
 
 
@@ -495,72 +662,96 @@
       <a href="#" class="fleet-btn" onclick="showPage('book');return false;">Reserve This Vehicle</a>
     </div>
   </div>
-
 </div>
+    </section>
+  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2016</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="https://www.instagram.com/blackdiamond_motors" target="_blank">Instagram</a></li><li><a href="https://maps.app.goo.gl/7u6bRW8B27H5PHMn7" target="_blank">Google</a></li>
+</ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>  
+</div>
+
+
 
 <!-- ════════ BOOK ════════ -->
-<div id="book" class="page">
-  <div style="padding-top:100px;"></div>
-  <section style="background:var(--black);padding-top:60px;">
-    <div style="max-width:900px;margin:0 auto;">
-      <div style="text-align:center;margin-bottom:64px;">
-        <p class="s-eye">Make a Request</p>
-        <h2 class="s-title">Request Your <em>Vehicle or Book with Turo</em></h2>
-        <div class="divider" style="margin:24px auto;"></div>
-        <p class="s-body" style="margin:0 auto;text-align:center;">Complete the form below and our concierge team will confirm your reservation.</p>
-      </div>
+<div class="page" id="book">
+  <section style="background:var(--black); padding:80px 20px; text-align:center; color:var(--white);">
+    <div style="max-width:800px; margin:0 auto;">
+      <p class="s-eye" style="color:var(--gold); letter-spacing:0.2em;">Make a Reservation</p>
+      <h2 class="s-title" style="font-size:36px; margin:16px 0;">Reserve Your <em>Vehicle</em></h2>
+      <div class="divider" style="width:80px; height:2px; background:var(--gold); margin:24px auto;"></div>
+      <p style="font-size:16px; line-height:1.8; max-width:600px; margin:0 auto 48px;">
+        Ready to hit the road? Click the button below to reserve your vehicle instantly through Turo. 
+        Our fleet of luxury and exotic cars is ready for your next adventure.
+      </p>
 
-<!-- TURO EMBED -->
-<div style="text-align:center;margin-bottom:60px;">
-  <p class="s-eye">Instant Booking</p>
-  <h2 class="s-title">Book via <em>Turo</em></h2>
-  <div class="divider" style="margin:24px auto;"></div>
-
-  <a href="https://turo.com/ca/en/drivers/6006478"
-     target="_blank"
-     class="btn-primary">
-     View Live Availability
-  </a>
-</div>
-
-      <div id="bookForm" style="background:var(--deep);border:1px solid var(--border);padding:64px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;" class="form-grid">
-          <div class="form-field"><label>First Name</label><input type="text" placeholder="Alexander" id="firstName"></div>
-          <div class="form-field"><label>Last Name</label><input type="text" placeholder="Sterling" id="lastName"></div>
-          <div class="form-field"><label>Email Address</label><input type="email" placeholder="your@email.com" id="email"></div>
-          <div class="form-field"><label>Phone Number</label><input type="tel" placeholder="+1 (___) ___-____" id="phone"></div>
-          <div class="form-field"><label>Preferred Vehicle</label><select id="vehicle"><option value="">Select a vehicle</option><option>Aston Martin DBX — $800/day</option><option>Audi SQ8 — $950/day</option><option>Jaguar F-Type — $1,000/day</option><option>Jeep Wagoneer — $750/day</option><option>Mercedes-Benz G-Wagon — $650/day</option><option>Bentley Bentayga — $850/day</option></select></div>
-          <div class="form-field"><label>Duration</label><select><option>1 Day</option><option>2–3 Days</option><option>4–6 Days</option><option>1 Week</option><option>2 Weeks</option><option>1 Month+</option></select></div>
-          <div class="form-field"><label>Pickup Date</label><input type="date" id="pickupDate"></div>
-          <div class="form-field"><label>Return Date</label><input type="date" id="returnDate"></div>
-          <div class="form-field" style="grid-column:1/-1;"><label>Delivery Address (Optional)</label><input type="text" placeholder="Address for white-glove delivery"></div>
-          <div class="form-field" style="grid-column:1/-1;"><label>Special Requests</label><input type="text" placeholder="Champagne, roses, custom itinerary..."></div>
-        </div>
-        <div style="margin-top:32px;display:flex;align-items:center;justify-content:space-between;gap:32px;" class="form-submit">
-          <p style="font-size:10px;letter-spacing:0.08em;line-height:1.8;color:var(--white-dim);">Your reservation will be confirmed.<br>A 20% deposit secures your booking.</p>
-          <button class="btn-submit" onclick="submitBooking()">Submit Reservation</button>
-        </div>
-      </div>
-
-      <div id="bookingSuccess" style="display:none;text-align:center;padding:80px 48px;background:var(--deep);border:1px solid var(--border);">
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin:0 auto 24px;display:block;"><polygon points="32,4 60,32 32,60 4,32" fill="none" stroke="#c9a84c" stroke-width="1.5"/><polygon points="32,16 48,32 32,48 16,32" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/><path d="M22,32 L28,38 L42,24" stroke="#f5f3ef" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--white);margin-bottom:16px;">Reservation Received</h2>
-        <p style="font-size:12px;line-height:2;color:var(--white-dim);">Thank you for choosing Black Diamond Motors.<br>Our concierge will be in touch within 2 hours to confirm your reservation.<br><br>We look forward to curating your experience.</p>
-        <br><br>
-        <a href="#" class="btn-ghost" onclick="showPage('home');return false;">Return Home</a>
-      </div>
+      <a href="https://turo.com/ca/en/drivers/6006478" target="_blank" style="
+        display:inline-block;
+        background:var(--gold);
+        color:var(--black);
+        font-weight:bold;
+        padding:16px 32px;
+        border-radius:8px;
+        text-decoration:none;
+        font-size:18px;
+        transition:0.3s;
+      " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+        Reserve on Turo
+      </a>
     </div>
   </section>
 
+  <!-- Footer -->
   <div style="background:var(--deep);border-top:1px solid var(--border);padding:48px 60px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
-    <div style="text-align:center;"><p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Phone</p><p style="font-size:16px;color:var(--white);">+1 (800) 555-0199</p></div>
-    <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border);"><p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Email</p><p style="font-size:16px;color:var(--white);">info@blackdiamond.com</p></div>
-    <div style="text-align:center;"><p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Hours</p><p style="font-size:16px;color:var(--white);">24 / 7 Concierge</p></div>
+    <div style="text-align:center;">
+      <p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Phone</p>
+      <p style="font-size:16px;color:var(--white);">+1 (800) 555-0199</p>
+    </div>
+    <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border);">
+      <p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Email</p>
+      <p style="font-size:16px;color:var(--white);">info@blackdiamond.com</p>
+    </div>
+    <div style="text-align:center;">
+      <p style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Hours</p>
+      <p style="font-size:16px;color:var(--white);">24 / 7 Concierge</p>
+    </div>
   </div>
 
-  <footer><div class="footer-grid"><div class="footer-brand"><div class="bn">Black Diamond</div><div class="bt">Motors · Est. 2016</div><p>Purveyors of premium automotive experiences.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li><li><a href="#" onclick="showPage('why');return false;">Why Us</a></li><li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li><li><a href="#" onclick="showPage('book');return false;">Reserve</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li><a href="#">+1 (800) 555-0199</a></li><li><a href="#">info@blackdiamond.com</a></li></ul></div><div class="footer-col"><h4>Social</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Black Diamond Motors. All rights reserved.</p><p>Privacy Policy · Terms</p></div></footer>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="bn">Black Diamond</div>
+        <div class="bt">Motors · Est. 2016</div>
+        <p>Purveyors of premium automotive experiences.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
+          <li><a href="#" onclick="showPage('about');return false;">About</a></li>
+          <li><a href="#" onclick="showPage('why');return false;">Why Us</a></li>
+          <li><a href="#" onclick="showPage('fleet');return false;">Fleet</a></li>
+          <li><a href="#" onclick="showPage('book');return false;">Reserve</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">+1 (800) 555-0199</a></li>
+          <li><a href="#">info@blackdiamond.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/blackdiamond_motors" target="_blank">Instagram</a></li>
+          <li><a href="https://maps.app.goo.gl/7u6bRW8B27H5PHMn7" target="_blank">Google</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Black Diamond Motors. All rights reserved.</p>
+      <p>Privacy Policy · Terms</p>
+    </div>
+  </footer>
 </div>
-
 <script>
   // Cursor
   const cursor = document.getElementById('cursor');
@@ -592,11 +783,7 @@
     document.getElementById(id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     initReveal();
-    // reset booking form view
-    if (id === 'book') {
-      document.getElementById('bookForm').style.display = 'block';
-      document.getElementById('bookingSuccess').style.display = 'none';
-    }
+
   }
 
   // Scroll reveal
