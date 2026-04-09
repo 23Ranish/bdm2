@@ -52,6 +52,7 @@
   @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
   .hero-vert { position: absolute; left: 60px; top: 50%; font-size: 9px; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); white-space: nowrap; transform: translateY(-50%) rotate(-90deg) translateX(-50%); transform-origin: center center; }
   .hero-car-area { position: absolute; right: 8%; bottom: 0; width: 55%; height: 70%; z-index: 2; overflow: visible;}
+  .hero-image {width: 100%;max-width: 60000px;height: auto;}
   .hero-car-gradient { position: absolute; top: 0; left: 0; width: 200%; height: 100%; background: linear-gradient(90deg, var(--black) 0%, transparent 60%),linear-gradient(0deg, var(--black) 0%, transparent 30%); z-index: 2; pointer-events: none;}
   .hero-content { position: relative; z-index: 2; padding: 0 60px 80px 140px; max-width: 800px; animation: reveal 1.4s cubic-bezier(0.16,1,0.3,1) both; }
   .hero-eyebrow { font-size: 9px; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; animation: reveal 1.4s 0.2s both; }
@@ -157,6 +158,8 @@
     .form-submit { flex-direction: column; align-items: stretch; }
     .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
   }
+
+
   /* ── TABLET (max 1024px) ── */
 @media (max-width: 1024px) {
   nav { padding: 20px 32px; }
@@ -266,6 +269,20 @@
   nav img[src="bdmlogo2.png"] { width: 160px !important; }
   .fleet-name { font-size: 20px; }
 }
+
+.btn-wrapper {
+  display: inline-block;
+  padding: 6px;
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+.btn-primary {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 16px 36px;
+  letter-spacing: 0.1em;
+}
+
 </style>
 </head>
 <body>
@@ -283,9 +300,9 @@
     <li><a href="#" onclick="showPage('book');return false;">Reserve</a></li>
   </ul>
 <div style="display: flex; justify-content: center;">
-  <img src="bdmlogo2.png" style="width: 250px;">
+  <img src="bdmlogo2.png" style="width: 250px; cursor: none;" onclick="showPage('home'); return false;">
 </div>
-  <a href="#" class="nav-book-btn" onclick="showPage('book');return false;">Reserve Now</a>
+  <a href="#" class="fleet-btn" onclick="showPage('book');return false;">Reserve Now</a>
 </nav>
 
 <!-- ════════ HOME ════════ -->
@@ -298,8 +315,8 @@
       <polygon points="200,90 310,200 200,310 90,200" fill="none" stroke="#c9a84c" stroke-width="0.3"/>
     </svg>
     <div class="hero-car-area">
-  <img src="dbx.jpg" alt="Hero visual" class="hero-image">
-  <div class="hero-car-gradient"></div> <!-- keeps your gradient -->
+    <img src="dbx.jpg" alt="Hero visual" class="hero-image" style="width:100%; height:100%; object-fit:cover; object-position:center center;">
+  <div class="hero-car-gradient"></div>
 </div>
     <div class="hero-content">
       <p class="hero-eyebrow">Established in Excellence</p>
@@ -672,27 +689,29 @@
 
 <!-- ════════ BOOK ════════ -->
 <div class="page" id="book">
-  <section style="background:var(--black); padding:80px 20px; text-align:center; color:var(--white);">
+  <section style="background:var(--black); padding:200px 20px 80px 20px; text-align:center; color:var(--white);">
     <div style="max-width:800px; margin:0 auto;">
-      <p class="s-eye" style="color:var(--gold); letter-spacing:0.2em;">Make a Reservation</p>
+      <p class="s-eye" style="color:var(--white); letter-spacing:0.2em;">Make a Reservation</p>
       <h2 class="s-title" style="font-size:36px; margin:16px 0;">Reserve Your <em>Vehicle</em></h2>
-      <div class="divider" style="width:80px; height:2px; background:var(--gold); margin:24px auto;"></div>
+      <div class="divider" style="width:80px; height:2px; background:var(--white); margin:24px auto;"></div>
       <p style="font-size:16px; line-height:1.8; max-width:600px; margin:0 auto 48px;">
         Ready to hit the road? Click the button below to reserve your vehicle instantly through Turo. 
         Our fleet of luxury and exotic cars is ready for your next adventure.
       </p>
-
       <a href="https://turo.com/ca/en/drivers/6006478" target="_blank" style="
         display:inline-block;
-        background:var(--gold);
-        color:var(--black);
+        background:#ffffff;   /* black background */
+        color: #000000;        /* white text */
         font-weight:bold;
         padding:16px 32px;
-        border-radius:8px;
+        border-radius:0px;    /* sharp rectangle (remove rounded corners) */
         text-decoration:none;
         font-size:18px;
-        transition:0.3s;
-      " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+        letter-spacing:0.08em;
+        border:2px solid #ffffff; /* clean edge */
+        transition:all 0.3s ease;
+      " onmouseover="this.style.background='#000000'; this.style.color='#ffffff'" 
+        onmouseout="this.style.background='#ffffff'; this.style.color='#000000'">
         Reserve on Turo
       </a>
     </div>
