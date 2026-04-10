@@ -39,6 +39,44 @@
     <a href="https://turo.com/ca/en/drivers/6006478" target="_blank" class="btn-primary">
       Reserve on Turo
     </a>
+
+    <!-- CONTACT FORM -->
+<div style="margin-top:60px; max-width:600px; margin-left:auto; margin-right:auto;">
+
+  <form action="https://formspree.io/f/mreowjrq" method="POST">
+
+    <div class="form-field">
+      <label>Name</label>
+      <input type="text" name="name" required>
+    </div>
+
+    <div class="form-field" style="margin-top:16px;">
+      <label>Email</label>
+      <input type="email" name="email" required>
+    </div>
+
+    <div class="form-field" style="margin-top:16px;">
+      <label>Message</label>
+      <input type="text" name="message" placeholder="What are you looking to book?" required>
+    </div>
+
+    <!-- spam protection -->
+    <input type="text" name="_gotcha" style="display:none">
+
+    <!-- optional subject -->
+    <input type="hidden" name="_subject" value="New Reservation Inquiry">
+
+    <div style="margin-top:28px;">
+      <button type="submit" class="btn-primary">
+        Send Inquiry
+      </button>
+    </div>
+
+  </form>
+
+</div>
+    
+    
   </div>
 </section>
 <footer>
