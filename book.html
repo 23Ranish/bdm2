@@ -40,41 +40,99 @@
       Reserve on Turo
     </a>
 
-    <!-- CONTACT FORM -->
-<div style="margin-top:60px; max-width:600px; margin-left:auto; margin-right:auto;">
+<form action="https://formspree.io/f/mreowjrq" method="POST">
 
-  <form action="https://formspree.io/f/mreowjrq" method="POST">
+  <!-- NAME -->
+  <div class="form-field">
+    <label>Name</label>
+    <input type="text" name="name" required>
+  </div>
 
-    <div class="form-field">
-      <label>Name</label>
-      <input type="text" name="name" required>
-    </div>
+  <!-- EMAIL -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Email</label>
+    <input type="email" name="email" required>
+  </div>
 
-    <div class="form-field" style="margin-top:16px;">
-      <label>Email</label>
-      <input type="email" name="email" required>
-    </div>
+  <!-- VEHICLE -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Select Vehicle</label>
+    <select name="vehicle" required>
+      <option value="">Choose your vehicle</option>
+      <option>Lamborghini Urus</option>
+      <option>Mercedes S-Class</option>
+      <option>Range Rover</option>
+      <option>Porsche 911</option>
+    </select>
+  </div>
 
-    <div class="form-field" style="margin-top:16px;">
-      <label>Message</label>
-      <input type="text" name="message" placeholder="What are you looking to book?" required>
-    </div>
+  <!-- PICKUP DATE -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Service Date</label>
+    <input type="date" name="service_date" required>
+  </div>
 
-    <!-- spam protection -->
-    <input type="text" name="_gotcha" style="display:none">
+  <!-- TIME -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Pickup Time</label>
+    <input type="time" name="pickup_time" required>
+  </div>
 
-    <!-- optional subject -->
-    <input type="hidden" name="_subject" value="New Reservation Inquiry">
+  <!-- PICKUP LOCATION -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Pickup Location</label>
+    <input type="text" name="pickup_location" placeholder="Address or area" required>
+  </div>
 
-    <div style="margin-top:28px;">
-      <button type="submit" class="btn-primary">
-        Send Inquiry
-      </button>
-    </div>
+  <!-- DESTINATION -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Drop-off / Destination</label>
+    <input type="text" name="dropoff_location" placeholder="Where to?" required>
+  </div>
 
-  </form>
+  <!-- DURATION OPTION -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Service Type</label>
+    <select name="service_type" required>
+      <option value="">Select service</option>
+      <option>One-way transfer</option>
+      <option>Round trip</option>
+      <option>Hourly (3+ hours)</option>
+      <option>Full day (8+ hours)</option>
+    </select>
+  </div>
 
-</div>
+  <!-- ADD-ONS -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Add-ons</label>
+    <select name="addons">
+      <option value="">None</option>
+      <option>Champagne service</option>
+      <option>Decorated vehicle (events)</option>
+      <option>VIP airport pickup</option>
+    </select>
+  </div>
+
+  <!-- NOTES -->
+  <div class="form-field" style="margin-top:16px;">
+    <label>Special Requests</label>
+    <input type="text" name="notes" placeholder="Occasion, preferences, etc.">
+  </div>
+
+  <!-- SPAM PROTECTION -->
+  <input type="text" name="_gotcha" style="display:none">
+
+  <!-- SUBJECT -->
+  <input type="hidden" name="_subject" value="New Chauffeur Booking Request">
+
+  <!-- SUBMIT -->
+  <div style="margin-top:28px;">
+    <button type="submit" class="btn-primary">
+      Request Chauffeur Service
+    </button>
+  </div>
+
+</form>
     
     
   </div>
